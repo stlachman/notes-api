@@ -11,7 +11,7 @@ server.get("/", (req, res) => {
   res.status(200).json({ message: "Hello World" });
 });
 
-server.use("/todos", todosRouter);
-server.use("/users", usersRouter);
+server.use("/api/tasks", todosRouter);
+server.use("/api/users", usersRouter);
 
 module.exports = server;
