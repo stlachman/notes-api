@@ -3,7 +3,7 @@ const router = express.Router();
 
 const Tasks = require("./todos-model");
 
-router.post("/", (req, res) => {
+router.post("/", validateTask, (req, res) => {
   const task = req.body;
   Tasks.add(task)
     .then(newTask => {
@@ -23,5 +23,20 @@ router.get("/", (req, res) => {
       res.status(500).json({ message: "Error retrieving tasks" });
     });
 });
+
+function validateTask(req, res, next) {
+  const currentTask = req.body;
+  if (
+    currentTask &&
+    currentTask.task &&
+    currentTask.category &&
+    currentTask.due_date &&
+    currentTask.user_id
+  ) {
+    next();
+  } else {
+    res.status(400).json({ message: "You are missing a required field" });
+  }
+}
 
 module.exports = router;
