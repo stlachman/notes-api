@@ -31,7 +31,8 @@ router.post("/login", (req, res) => {
 
         res.status(200).json({
           message: `Welcome ${user.name}`,
-          token
+          token,
+          id: user.id
         });
       } else {
         res.status(401).json({ message: "You are not authorized" });

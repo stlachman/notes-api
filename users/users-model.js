@@ -4,7 +4,8 @@ module.exports = {
   add,
   find,
   findUser,
-  findById
+  findById,
+  findUserTasks
 };
 
 function find() {
@@ -24,4 +25,8 @@ function findById(id) {
   return db("users")
     .where({ id })
     .first();
+}
+
+function findUserTasks(id) {
+  return db("todos").where("user_id", id);
 }
