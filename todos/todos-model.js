@@ -4,7 +4,8 @@ module.exports = {
   add,
   find,
   findTodo,
-  findById
+  findById,
+  update
 };
 
 function find() {
@@ -18,6 +19,12 @@ function findTodo(task) {
 async function add(todo) {
   const [todoId] = await db("todos").insert(todo);
   return findById(todoId);
+}
+
+function update(id, changes) {
+  return db("todos")
+    .where({ id })
+    .update(changes);
 }
 
 function findById(id) {

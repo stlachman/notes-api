@@ -24,6 +24,31 @@ router.get("/", (req, res) => {
     });
 });
 
+router.get("/:id", (req, res) => {
+  const { id } = req.params;
+
+  Tasks.findById(id)
+    .then(task => {
+      res.status(200).json(task);
+    })
+    .catch(err => {
+      res.status(500).json({ message: "Error retrieving tasks" });
+    });
+});
+
+router.put("/:id", (req, res) => {
+  const updatedTodo = req.body;
+
+  Tasks.update(updatedTodo.id, updatedTodo)
+    .then(task => {
+      console.log(updatedTodo);
+      res.status(200).json(updatedTodo);
+    })
+    .catch(err => {
+      res.status(500).json({ message: "Error retrieving tasks" });
+    });
+});
+
 function validateTask(req, res, next) {
   const currentTask = req.body;
   if (
